@@ -1,3 +1,3 @@
 # CanvasPong
 
-A simple, Atari-looking game of pong, written in JavaScript, using <canvas>.
+A simple game of pong, written in JavaScript, using <canvas>.
