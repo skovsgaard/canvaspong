@@ -1,7 +1,7 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var FPS = 2d0;
-var baseSpeed = 2;
+var FPS = 20;
+var baseSpeed = 4;
 var upKeyDown = false;
 var downKeyDown = false;
 
@@ -10,7 +10,8 @@ function checkKeysDown() {
     if (event.keyCode == 38) {
       upKeyDown = true;
       console.log('Upkey pressed');
-    } else if(event.keyCode == 40) {
+    }
+    if(event.keyCode == 40) {
       downKeyDown = true;
       console.log('Downkey pressed');
     }
@@ -34,6 +35,38 @@ var player = {
   height: 100,
   speed: 8,
   x: canvas.width - 40,
+  y: canvas.height / 2,
+  draw: function() {
+    ctx.fillStyle = 'rgb(0,0,0)';
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  },
+  update: function() {
+    if (this.y <= canvas.height) {
+      if (upKeyDown) {
+        this.y -= this.speed;
+      }
+      if (downKeyDown) {
+        this.y += this.speed;
+      }
+    }
+    
+    if (this.y + this.height >= canvas.height) {
+      this.y = canvas.height - this.height;
+    }
+    
+    if (this.y < 0) {
+      this.y = 0;
+    }
+    upKeyDown = false;
+    downKeyDown = false;
+  }
+}
+
+var enemy = {
+  width: 20,
+  height: 100,
+  speed: 8,
+  x: 20,
   y: canvas.height / 2,
   draw: function() {
     ctx.fillStyle = 'rgb(0,0,0)';
@@ -93,7 +126,7 @@ function collides(a, b) {
 }
 
 function handleCollision() {
-  if (collides(player, ball)) {
+  if (collides(player, ball) || collides(enemy, ball)) {
     ball.speed = ball.speed * -1;
   }
 }
@@ -101,6 +134,7 @@ function handleCollision() {
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
+  enemy.update();
   ball.update();
   handleCollision();
 }
@@ -108,6 +142,7 @@ function update() {
 function draw() {
   ball.draw();
   player.draw();
+  enemy.draw();
 }
 
 function main() {
