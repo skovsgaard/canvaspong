@@ -33,7 +33,7 @@ function checkKeysDown() {
 var player = {
   width: 20,
   height: 100,
-  speed: 8,
+  speed: baseSpeed * 2,
   x: canvas.width - 40,
   y: canvas.height / 2,
   draw: function() {
@@ -41,7 +41,7 @@ var player = {
     ctx.fillRect(this.x, this.y, this.width, this.height);
   },
   update: function() {
-    if (this.y <= canvas.height) {
+    if (this.y < canvas.height) {
       if (upKeyDown) {
         this.y -= this.speed;
       }
@@ -65,7 +65,7 @@ var player = {
 var enemy = {
   width: 20,
   height: 100,
-  speed: 8,
+  speed: baseSpeed + 2,
   x: 20,
   y: canvas.height / 2,
   draw: function() {
@@ -74,23 +74,10 @@ var enemy = {
   },
   update: function() {
     if (this.y <= canvas.height) {
-      if (upKeyDown) {
-        this.y -= this.speed;
-      }
-      if (downKeyDown) {
-        this.y += this.speed;
-      }
-    }
-    
-    if (this.y + this.height >= canvas.height) {
-      this.y = canvas.height - this.height;
-    }
-    
-    if (this.y < 0) {
-      this.y = 0;
-    }
-    upKeyDown = false;
-    downKeyDown = false;
+      this.y += this.speed;
+    } else {
+     this.y = -100;
+    } 
   }
 }
 
