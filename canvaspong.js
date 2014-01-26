@@ -16,7 +16,7 @@ function checkKeysDown() {
       console.log('Downkey pressed');
     }
   });
-};
+}
 
 /*function checkKeysUp() {
   document.addEventListener('keyup', function(event) {
@@ -60,7 +60,7 @@ var player = {
     upKeyDown = false;
     downKeyDown = false;
   }
-}
+};
 
 var enemy = {
   width: 20,
@@ -73,13 +73,14 @@ var enemy = {
     ctx.fillRect(this.x, this.y, this.width, this.height);
   },
   update: function() {
-    if (this.y <= canvas.height) {
+    if (this.y + this.height <= canvas.height && this.y >= 0) {
       this.y += this.speed;
     } else {
-     this.y = -100;
+      this.speed *= -1;
+      this.y += this.speed;
     } 
   }
-}
+};
 
 var ball = {
   width: 20,
@@ -103,7 +104,7 @@ var ball = {
       this.x += this.speed;
     }
   }
-}
+};
 
 function collides(a, b) {
   return a.x < b.x + b.width &&
