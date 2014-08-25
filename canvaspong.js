@@ -18,18 +18,6 @@ function checkKeysDown() {
   });
 }
 
-/*function checkKeysUp() {
-  document.addEventListener('keyup', function(event) {
-    if (event.keyCode == 38) {
-      upKeyDown = false;
-      console.log('Upkey released');
-    } else if (event.keyCode == 40) {
-      downKeyDown = false;
-      console.log('Downkey released');
-    }
-  });
-}*/
-
 var player = {
   width: 20,
   height: 100,
@@ -95,19 +83,15 @@ var ball = {
   },
   update: function() {
     if (this.x <= 0) {
-      //this.speed = baseSpeed;
-      //this.x += this.speed;
-      this.drop();
+      this.drop('The opponent');
     } else if (this.x + this.width > canvas.width) {
-      //this.speed *= -1;
-      //this.x += this.speed;
-      this.drop();
+      this.drop('You');
     } else {
       this.x += this.speed;
     }
   },
-  drop: function() {
-    alert('The ball was dropped!');
+  drop: function(dropper) {
+    alert(dropper + ' dropped the ball!');
     this.x = canvas.width / 2 - 10;
   }
 };
