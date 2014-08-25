@@ -95,14 +95,20 @@ var ball = {
   },
   update: function() {
     if (this.x <= 0) {
-      this.speed = baseSpeed;
-      this.x += this.speed;
+      //this.speed = baseSpeed;
+      //this.x += this.speed;
+      this.drop();
     } else if (this.x + this.width > canvas.width) {
-      this.speed *= -1;
-      this.x += this.speed;
+      //this.speed *= -1;
+      //this.x += this.speed;
+      this.drop();
     } else {
       this.x += this.speed;
     }
+  },
+  drop: function() {
+    alert('The ball was dropped!');
+    this.x = canvas.width / 2 - 10;
   }
 };
 
